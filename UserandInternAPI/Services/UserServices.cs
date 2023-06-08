@@ -24,16 +24,9 @@ namespace UserandInternAPI.Services
         }
         public async Task<UserDTO> ChangeStatus(UserDTO userDTO)
         {
-            var user = await _userRepo.Get(userDTO.UserId);
-            try
-            {
-                var updatedUser = await _userRepo.Update(user);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
+            var users = await _userRepo.GetAll();
+            var user = users.SingleOrDefault(u=>u.UserId==userDTO.UserId && u.Role==userDTO.Role);
+            var updatedUser = await _userRepo.Update(user);
             return userDTO;
         }
 
@@ -64,17 +57,17 @@ namespace UserandInternAPI.Services
             string? generatedPassword = await _passwordService.GeneratePassword(intern);
             intern.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
             intern.User.PasswordKey = hmac.Key;
-            intern.User.Role = "Intern";
-            intern.User.Status = "Not Approved";
+            intern.User.Role = "Admin";
+            intern.User.Status = "Approved";
             var userResult = await _userRepo.Add(intern.User);
-            var internResult = await _internRepo.Add(intern);
-            if (userResult != null && internResult != null)
-            {
-                user = new UserDTO();
-                user.UserId = internResult.Id;
-                user.Role = userResult.Role;
-                user.Token = _tokenService.GenerateToken(user);
-            }
+            //var internResult = await _internRepo.Add(intern);
+            //if (userResult != null && internResult != null)
+            //{
+            //    user = new UserDTO();
+            //    user.UserId = internResult.Id;
+            //    user.Role = userResult.Role;
+            //    user.Token = _tokenService.GenerateToken(user);
+            //}
             return user;
 
         }

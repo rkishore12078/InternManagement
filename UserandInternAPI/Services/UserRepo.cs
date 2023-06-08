@@ -57,15 +57,22 @@ namespace UserandInternAPI.Services
 
         public async Task<User?> Update(User item)
         {
-            var user = await Get(item.UserId);
-            if (user != null)
+            try
             {
-                user.Role = item.Role;
-                user.PasswordHash = item.PasswordHash;
-                user.PasswordKey = item.PasswordKey;
-                user.Status = item.Status;
-                await _context.SaveChangesAsync();
-                return user;
+                var user = await Get(item.UserId);
+                if (user != null)
+                {
+                    user.Role = item.Role;
+                    user.PasswordHash = item.PasswordHash != null ? item.PasswordHash : user.PasswordHash;
+                    user.PasswordKey = item.PasswordKey != null ? item.PasswordKey : user.PasswordKey;
+                    user.Status = "Approved";
+                    await _context.SaveChangesAsync();
+                    return user;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new InvalidSqlException(ex.Message);
             }
             return null;
         }
