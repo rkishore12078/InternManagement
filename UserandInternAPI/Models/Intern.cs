@@ -14,7 +14,7 @@ namespace UserandInternAPI.Models
         [Key]
         public int Id { get; set; }
         [ForeignKey("Id")]
-        public User? User { get; set; }
+        public User? User { get; set; } = null;
         [Required(ErrorMessage = "Name cannot be empty")]
         [MinLength(5, ErrorMessage = "Name cannot be less than 3 char")]
         public string Name { get; set; }

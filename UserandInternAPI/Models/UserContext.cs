@@ -10,9 +10,11 @@ namespace UserandInternAPI.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Intern> Interns { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Intern>().Property(i => i.Id).ValueGeneratedNever();//Do not make id as identity
-        }
+
+     
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Intern>().Property(i => i.Id).ValueGeneratedNever();//Do not make id as identity
+        //}
     }
 }

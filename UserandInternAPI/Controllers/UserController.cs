@@ -52,5 +52,14 @@ namespace UserandInternAPI.Controllers
                 return Ok(user);
             return BadRequest(new Error(4,"Unable to LogIN"));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<string>> ChangePassword(ChangePasswordDTO passwordDTO)
+        {
+            var result=await _userServices.ChangePassword(passwordDTO);
+            if (result != null)
+                return Ok("Password Updated Successfully");
+            return BadRequest(new Error(5,"Unable to update Password"));
+        }
     }
 }

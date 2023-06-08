@@ -60,16 +60,33 @@ namespace UserandInternAPI.Services
             intern.User.Role = "Admin";
             intern.User.Status = "Approved";
             var userResult = await _userRepo.Add(intern.User);
-            //var internResult = await _internRepo.Add(intern);
-            //if (userResult != null && internResult != null)
-            //{
-            //    user = new UserDTO();
-            //    user.UserId = internResult.Id;
-            //    user.Role = userResult.Role;
-            //    user.Token = _tokenService.GenerateToken(user);
-            //}
+            var internResult = await _internRepo.Add(intern);
+            if (userResult != null && internResult != null)
+            {
+                user = new UserDTO();
+                user.UserId = internResult.Id;
+                user.Role = userResult.Role;
+                user.Token = _tokenService.GenerateToken(user);
+            }
             return user;
 
+        }
+
+        public async Task<ChangePasswordDTO> ChangePassword(ChangePasswordDTO passwordDTO)
+        {
+            var user = await _userRepo.Get(passwordDTO.UserID);
+            if (user != null)
+            {
+                var hmac = new HMACSHA512();
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordDTO.NewPassword));
+                user.PasswordKey = hmac.Key;
+                var result = await _userRepo.Update(user);
+                if (result != null)
+                {
+                    return passwordDTO;
+                }
+            }
+            return null;
         }
     }
 }
