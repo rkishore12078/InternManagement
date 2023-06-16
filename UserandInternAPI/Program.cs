@@ -16,6 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opts =>
+{
+    opts.AddPolicy("AngularCORS", options =>
+    {
+        options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
+
 builder.Services.AddDbContext<UserContext>
                 (options => options.UseSqlServer(builder.Configuration.GetConnectionString("myConn")));
 builder.Services.AddScoped<UserServices>();
@@ -71,6 +79,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AngularCORS");
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserandInternAPI", "UserandInternAPI\UserandInternAPI.csproj", "{FD78F5DB-053B-4036-B854-38FDC0443292}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserandInternAPI", "UserandInternAPI\UserandInternAPI.csproj", "{FD78F5DB-053B-4036-B854-38FDC0443292}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogAPI", "LogAPI\LogAPI.csproj", "{FB732696-1C33-4CA3-9343-AB6E1B7B85AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaiseTicketAPI", "RaiseTicketAPI\RaiseTicketAPI.csproj", "{0EFBD34F-93DE-4540-A11C-B6D666BD2568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogsAPI", "LogsAPI\LogsAPI.csproj", "{B5D38BBF-6170-49E2-863E-2406EF76231A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{FD78F5DB-053B-4036-B854-38FDC0443292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD78F5DB-053B-4036-B854-38FDC0443292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD78F5DB-053B-4036-B854-38FDC0443292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB732696-1C33-4CA3-9343-AB6E1B7B85AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB732696-1C33-4CA3-9343-AB6E1B7B85AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB732696-1C33-4CA3-9343-AB6E1B7B85AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB732696-1C33-4CA3-9343-AB6E1B7B85AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EFBD34F-93DE-4540-A11C-B6D666BD2568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFBD34F-93DE-4540-A11C-B6D666BD2568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFBD34F-93DE-4540-A11C-B6D666BD2568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFBD34F-93DE-4540-A11C-B6D666BD2568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D38BBF-6170-49E2-863E-2406EF76231A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D38BBF-6170-49E2-863E-2406EF76231A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D38BBF-6170-49E2-863E-2406EF76231A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D38BBF-6170-49E2-863E-2406EF76231A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

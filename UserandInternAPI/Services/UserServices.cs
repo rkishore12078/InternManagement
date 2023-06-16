@@ -25,8 +25,12 @@ namespace UserandInternAPI.Services
         public async Task<UserDTO> ChangeStatus(UserDTO userDTO)
         {
             var users = await _userRepo.GetAll();
-            var user = users.SingleOrDefault(u=>u.UserId==userDTO.UserId && u.Role==userDTO.Role);
-            var updatedUser = await _userRepo.Update(user);
+            var user = users.SingleOrDefault(u=>u.UserId==userDTO.UserId);
+            var updatedUser = await _userRepo.Update(user,1);
+            if (updatedUser != null)
+            {
+                userDTO.Role= updatedUser.Role;
+            }
             return userDTO;
         }
 
@@ -57,8 +61,8 @@ namespace UserandInternAPI.Services
             string? generatedPassword = await _passwordService.GeneratePassword(intern);
             intern.User.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
             intern.User.PasswordKey = hmac.Key;
-            intern.User.Role = "Admin";
-            intern.User.Status = "Approved";
+            intern.User.Role = "Intern";
+            intern.User.Status = "Not Approved";
             var userResult = await _userRepo.Add(intern.User);
             var internResult = await _internRepo.Add(intern);
             if (userResult != null && internResult != null)
@@ -80,12 +84,39 @@ namespace UserandInternAPI.Services
                 var hmac = new HMACSHA512();
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordDTO.NewPassword));
                 user.PasswordKey = hmac.Key;
-                var result = await _userRepo.Update(user);
+                var result = await _userRepo.Update(user,0);
                 if (result != null)
                 {
                     return passwordDTO;
                 }
             }
+            return null;
+        }
+
+        public async Task<User?> GetUser(UserDTO userDTO)
+        {
+            var user = await _userRepo.Get(userDTO.UserId);
+            if (user != null) return user;
+            return null;
+        }
+
+        public async Task<Intern?> GetIntern(int id)
+        {
+            var myIntern = await _internRepo.Get(id);
+            if (myIntern != null) return myIntern;
+            return null;
+        }
+
+        public async Task<ICollection<Intern>?> GetAll()
+        {
+            return await _internRepo.GetAll();
+        }
+
+        public async Task<Intern?> Update(Intern intern)
+        {
+            var myIntern = await _internRepo.Update(intern, 0);
+            if(myIntern != null)
+                { return myIntern; }
             return null;
         }
     }

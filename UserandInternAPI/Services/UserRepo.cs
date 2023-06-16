@@ -26,7 +26,6 @@ namespace UserandInternAPI.Services
             {
                 throw new InvalidSqlException(ex.Message);
             }
-            return null;
         }
 
         public async Task<User?> Delete(int key)
@@ -58,7 +57,7 @@ namespace UserandInternAPI.Services
             return null;
         }
 
-        public async Task<User?> Update(User item)
+        public async Task<User?> Update(User item,int key)
         {
             try
             {
@@ -68,7 +67,8 @@ namespace UserandInternAPI.Services
                     user.Role = item.Role!=null?item.Role:user.Role;
                     user.PasswordHash = item.PasswordHash != null ? item.PasswordHash : user.PasswordHash;
                     user.PasswordKey = item.PasswordKey != null ? item.PasswordKey : user.PasswordKey;
-                    user.Status = "Approved";
+                    if(key==1)
+                        user.Status="Approved";
                     await _context.SaveChangesAsync();
                     return user;
                 }

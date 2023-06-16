@@ -26,7 +26,6 @@ namespace UserandInternAPI.Services
             {
                 throw new InvalidSqlException(ex.Message);
             }
-            return null;
         }
 
         public async Task<Intern?> Delete(int key)
@@ -55,16 +54,18 @@ namespace UserandInternAPI.Services
             return null;
         }
 
-        public async Task<Intern?> Update(Intern item)
+        public async Task<Intern?> Update(Intern item,int key)
         {
-            var intern = await Get(item.Id);
+            Intern? intern = await Get(item.Id);
             if (intern != null)
             {
+                intern.Name= item.Name!=null?item.Name:intern.Name;
+                intern.Gender=item.Gender!=null?item.Gender:intern.Gender;
                 intern.Age = item.Age>0?item.Age:intern.Age;
-                intern.User = item.User!=null?item.User:intern.User;
                 intern.Email = item.Email!=null?item.Email:intern.Email;
                 intern.Phone = item.Phone != null ? item.Phone : intern.Phone;
                 intern.DateOfBirth = item.DateOfBirth;
+                _context.Update(intern);
                 await _context.SaveChangesAsync();
             }
             return intern;

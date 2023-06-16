@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "BC9RY47XSkPtnEAEPGdyXlDcVvNxGt+RNUU2NpRfmQs=",
+  "Source": "RaiseTicketAPI",
+  "BasePath": "_content/RaiseTicketAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
